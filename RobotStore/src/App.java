@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import DataRobot.Robot;
+import DataRobot.ServiceCenter;
 import DataRobot.Produser;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         ArrayList<Robot> RobotList = new ArrayList<Robot>();
         ArrayList<Produser> ProduserList = new ArrayList<Produser>();
+        ArrayList<ServiceCenter> ServiceCenterList = new ArrayList<ServiceCenter>();
 
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(input);
@@ -23,8 +25,10 @@ public class App {
                     Menu:
                     1. Manajemen Robot
                     2. Manajemen Produser
-                    3. Tampilkan Robot
-                    4. Tampilkan Produser
+                    3. Manajemen Service Center
+                    4. Tampilkan Robot
+                    5. Tampilkan Produser
+                    6. Tampilkan Service Center
                     0. Keluar
                     ==============================
                     """);
@@ -103,7 +107,7 @@ public class App {
                         System.out.print("""
                             ==============================
                             Menu Manajemen Produser:
-                            1. Tambah Produse
+                            1. Tambah Produser
                             2. Ubah produser
                             3. Hapus produser
                             0. Kembali
@@ -159,10 +163,77 @@ public class App {
 
                         } else if (menu2.equals("0")) {
                             continue;
+
                         } else {
                             System.out.println("Menu tidak ada");
                         }
+
                     } else if (menu1.equals("3")) {
+                        System.out.print("""
+                            ==============================
+                            Menu Manajemen Service Center:
+                            1. Tambah Service Center
+                            2. Ubah Service Center
+                            3. Hapus Service Center
+                            0. Kembali
+                            ==============================
+                            """);
+                        System.out.print("Masukkan Pilihan : ");
+                        menu2 = br.readLine();
+                        if (menu2.equals("1")) {
+                            System.out.println("==============================");
+                            System.out.print("Masukkan Nama     : ");
+                            String NamaServiceCenter = br.readLine();
+                            System.out.print("Masukkan Alamat   : ");
+                            String AlamatServiceCenter = br.readLine();
+                            System.out.println("==============================");
+                            ServiceCenterList.add(new ServiceCenter(NamaServiceCenter, AlamatServiceCenter));
+
+                        } else if (menu2.equals("2")) {
+                            System.out.println("==============================");
+                            for (int i = 0; i < ServiceCenterList.size(); i++) {
+                                System.out.println("Data ke : " + i);
+                                ServiceCenterList.get(i).LihatServiceCenter();
+                                System.out.println("==============================");
+                            }
+                            System.out.print("Pilih data yang akan diubah : ");
+                            ubah = Integer.parseInt(br.readLine());
+                            if (ubah <= ServiceCenterList.size()) {
+                                System.out.println("==============================");
+                                System.out.print("Masukkan nama baru     : ");
+                                ServiceCenterList.get(ubah).NamaServiceCenter = br.readLine();
+                                System.out.print("Masukkan Alamat baru   : ");
+                                ServiceCenterList.get(ubah).AlamatServiceCenter = br.readLine();
+                                System.out.print("Data berhasil diubah");
+                                System.out.println("==============================");
+                            } else {
+                                System.out.println("Data tidak ada");
+                            }
+
+                        } else if (menu2.equals("3")) {
+                            System.out.println("==============================");
+                            for (int i = 0; i < ServiceCenterList.size(); i++) {
+                                System.out.println("Data ke : " + i);
+                                ServiceCenterList.get(i).LihatServiceCenter();
+                                System.out.println("==============================");
+                            }
+                            System.out.print("Pilih data yang akan dihapus : ");
+                            hapus = Integer.parseInt(br.readLine());
+                            if (hapus <= ServiceCenterList.size()) {
+                                System.out.println("Data berhasil dihapus");
+                                ServiceCenterList.remove(hapus);
+                            } else {
+                                System.out.println("Data tidak ada");
+                            }
+
+                        } else if (menu2.equals("0")) {
+                            continue;
+
+                        } else {
+                            System.out.println("Menu tidak ada");
+                        }
+
+                    } else if (menu1.equals("4")) {
                         System.out.println("==============================");
                         if (RobotList.size() != 0) {
                             for (int i = 0; i < RobotList.size(); i++) {
@@ -173,7 +244,7 @@ public class App {
                             System.out.println("Tidak ada data");
                         }
 
-                    } else if (menu1.equals("4")) {
+                    } else if (menu1.equals("5")) {
                         System.out.println("==============================");
                         if (ProduserList.size() != 0) {
                             for (int i = 0; i < ProduserList.size(); i++) {
@@ -183,6 +254,17 @@ public class App {
                         } else {
                             System.out.println("Tidak ada data");
                         }
+                    } else if (menu1.equals("6")){
+                        System.out.println("==============================");
+                        if (ServiceCenterList.size() != 0) {
+                            for (int i = 0; i < ServiceCenterList.size(); i++) {
+                                ServiceCenterList.get(i).LihatServiceCenter();
+                                System.out.println("==============================");
+                            }             
+                        } else {
+                            System.out.println("Tidak ada data");
+                        }
+
                     } else if (menu1.equals("0")) {
                         break;
                     } else {
